@@ -1,5 +1,7 @@
 Housed::Application.routes.draw do
-  resources :users
+  resources :users do
+  end
+    
   resources :sessions, :only => [:new, :create, :destroy]
 
   root :to => "pages#home"
