@@ -1,20 +1,7 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-
-<p>
-  <b>Type:</b>
-  <%= @user.type %>
-</p>
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<% if @user.shows.any? %>
+  <h3>Shows (<%= @user.microposts.count %>)</h3>
+  <ol class="shows">
+    <%= render @shows %>
+  </ol>
+  <%= will_paginate @shows %>
+<% end %>

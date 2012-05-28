@@ -5,8 +5,7 @@ class UsersController < ApplicationController
                 only: [:index, :edit, :update, :destroy, :following, :followers]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
-  
-  
+
   def index
     @users = User.all
 
@@ -45,8 +44,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render json: @user, status: :created, location: @user }
+        format.html { redirect_to welcome_path, notice: 'User was successfully created.' }
+        format.json { render json: welcome_path, status: :created, location: welcome_path }
+        sign_in @user
       else
         format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }

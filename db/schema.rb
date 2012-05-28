@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120526231630) do
+ActiveRecord::Schema.define(:version => 20120527182121) do
+
+  create_table "shows", :force => true do |t|
+    t.string   "date"
+    t.string   "location"
+    t.string   "host_email"
+    t.integer  "host_id"
+    t.integer  "musician_id"
+    t.integer  "ticket_price"
+    t.integer  "tickets_min"
+    t.integer  "tickets_max"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
 # Could not dump table "users" because of following StandardError
 #   Unknown type 'st' for column 'password_digest'
