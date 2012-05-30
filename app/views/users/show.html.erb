@@ -1,7 +1,27 @@
-<% if @user.shows.any? %>
-  <h3>Shows (<%= @user.microposts.count %>)</h3>
-  <ol class="shows">
-    <%= render @shows %>
-  </ol>
-  <%= will_paginate @shows %>
-<% end %>
+<% provide(@shows, @user.name) %>
+
+<div class="row">
+  <aside class="span4">
+    <section>
+     stats - test?
+
+    </section>
+  </aside>
+
+  <div class="span8">
+    <% if @user.shows.any? %>
+      <h3>Shows (<%= @user.shows.count %>)</h3>     
+	 <ol class="shows">
+		<%= render 'shared/shows'%>
+		
+
+
+
+
+
+      </ol>
+	  <%= will_paginate @shows %>
+
+    <% end %>
+  </div>
+</div>

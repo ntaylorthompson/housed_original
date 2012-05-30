@@ -2,7 +2,7 @@ namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
     make_users
-    make_shows
+#    make_shows
   end
 end
 
@@ -12,7 +12,7 @@ def make_users
                        password: "password",
                        password_confirmation: "password")
   admin.toggle!(:admin)
-  99.times do |n|
+  10.times do |n|
     name  = Faker::Name.name
     email = "example-#{n+1}@railstutorial.org"
     password  = "password"
@@ -24,4 +24,9 @@ def make_users
 end
 
 def make_shows
+  users = User.all(limit: 5)
+  5.times do
+    content = 
+    users.each { |user| user.microposts.create!(content: content) }
+  end
 end

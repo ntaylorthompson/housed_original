@@ -15,15 +15,16 @@
 
 			<li><%= link_to "Home", root_path %></li>
 			
-
+		</ul>
           <% if signed_in? %>
-
+			<ul class="nav">
             <% if current_user.musician? %>
 				<li><%= link_to "Create show", new_show_path %></li>
 				<li><%= link_to "Manage shows", current_user %></li>
 
 			<% end%>
-			<li><%= link_to "Help", help_path %></li>			
+			<li><%= link_to "Help", help_path %></li>
+			</ul>			
 			<ul class="nav pull-right">			
 	            <li id="fat-menu" class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -41,7 +42,9 @@
 	            </li>
 			
           <% else %>
-            <li><%= link_to "Sign in", signin_path %></li>
+			<ul class="nav pull-right">				
+            	<li><%= link_to "Sign in", signin_path %></li>
+			</ul>
           <% end %>
 			</ul>
 		

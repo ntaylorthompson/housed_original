@@ -1,5 +1,6 @@
 Housed::Application.routes.draw do
   resources :shows
+  resources :guests
 
   resources :users do
   end
@@ -17,6 +18,8 @@ Housed::Application.routes.draw do
   match '/signout', :to => 'sessions#destroy'
   
   match '/welcome', :to => 'pages#welcome'
+  
+  match '/thanks', :to => 'guests#thanks'
   
   
   # The priority is based upon order of creation:

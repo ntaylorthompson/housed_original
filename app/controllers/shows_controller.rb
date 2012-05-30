@@ -2,8 +2,11 @@ class ShowsController < ApplicationController
   # GET /shows
   # GET /shows.json
   
-  before_filter :signed_in_user
-  before_filter :correct_user,   only: :destroy
+  before_filter :signed_in_user,
+                only: [:index, :edit, :update, :destroy, :following, :followers]
+  before_filter :correct_user,   only: [ :edit]
+  before_filter :admin_user, only: [:index, :destroy]
+
 
   def index
     @shows = Show.all
@@ -18,6 +21,11 @@ class ShowsController < ApplicationController
   # GET /shows/1.json
   def show
     @show = Show.find(params[:id])
+    @musician = User.find(@show.user_id).name
+    @guests = @show.guests.count
+    @guest = @show.guests.build(params[:guest])
+    flash[:show] = @show
+ #   flash.keep    
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,6 +44,8 @@ class ShowsController < ApplicationController
     end
   end
 
+
+
   # GET /shows/1/edit
   def edit
     @show = Show.find(params[:id])
@@ -44,8 +54,7 @@ class ShowsController < ApplicationController
   # POST /shows
   # POST /shows.json
   def create
-    @show = Show.new(params[:show])
-    @show[:musician_id]=current_user[:id]
+    @show = current_user.shows.build(params[:show])
 
     respond_to do |format|
       if @show.save
@@ -89,7 +98,11 @@ class ShowsController < ApplicationController
 
     def correct_user
       @show = current_user.shows.find_by_id(params[:id])
-      redirect_to root_path if @shows.nil?
+      redirect_to root_path if @show.nil?
+    end
+    
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
     end
     
 end

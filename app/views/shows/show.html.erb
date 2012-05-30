@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+<h1>
+  <%= @musician %>
+</h1>House Show<br><br>
+
+
+<p>
   <b>Date:</b>
   <%= @show.date %>
 </p>
@@ -16,20 +22,19 @@
 </p>
 
 <p>
-  <b>Host:</b>
-  <%= @show.host_id %>
-</p>
-
-<p>
-  <b>Musician:</b>
-  <%= @show.musician_id %>
-</p>
-
-<p>
   <b>Ticket price:</b>
-  <%= @show.ticket_price %>
+  $<%= @show.ticket_price %>
 </p>
 
+<% if @guests > 4 %>
+
+	<p>
+	  <b>Guests:</b>
+	  <%= @guests %>
+	</p>
+<% end %>
+
+<% if signed_in? %>
 <p>
   <b>Tickets min:</b>
   <%= @show.tickets_min %>
@@ -41,5 +46,10 @@
 </p>
 
 
-<%= link_to 'Edit', edit_show_path(@show) %> |
-<%= link_to 'Back', shows_path %>
+	<%= link_to 'Edit', edit_show_path(@show) %> |
+	<%= link_to 'Back', shows_path %>
+
+<% else %>
+	<%= render 'buy_modal' %>
+<% end %>
+

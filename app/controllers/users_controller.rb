@@ -3,8 +3,9 @@ class UsersController < ApplicationController
   # GET /users.json
   before_filter :signed_in_user, 
                 only: [:index, :edit, :update, :destroy, :following, :followers]
-  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :correct_user,   only: [:edit, :update, :show]
   before_filter :admin_user,     only: :destroy
+  #before_filter :admin_user, only: :index
 
   def index
     @users = User.all
@@ -19,6 +20,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @shows = @user.shows.paginate(page: params[:page])
 
     respond_to do |format|
       format.html # show.html.erb

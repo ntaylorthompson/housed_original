@@ -11,22 +11,41 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120527182121) do
+ActiveRecord::Schema.define(:version => 20120530174440) do
+
+  create_table "guests", :force => true do |t|
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "show_id"
+  end
 
   create_table "shows", :force => true do |t|
-    t.string   "date"
     t.string   "location"
     t.string   "host_email"
     t.integer  "host_id"
-    t.integer  "musician_id"
+    t.integer  "user_id"
     t.integer  "ticket_price"
     t.integer  "tickets_min"
     t.integer  "tickets_max"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "tickets_sold", :default => 0
+    t.date     "date"
   end
 
-# Could not dump table "users" because of following StandardError
-#   Unknown type 'st' for column 'password_digest'
+  create_table "users", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.string   "password_digest"
+    t.string   "remember_token"
+    t.boolean  "admin",           :default => false
+    t.boolean  "musician",        :default => true
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end
